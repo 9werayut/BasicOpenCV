@@ -14,10 +14,19 @@ def draw_boundary(img, classifier, scaleFector, minNeighbors, color,clf):
         cv2.rectangle(img, (x,y), (x+w,y+h), color,2)
 
         id,_=clf.predict(gray[y:y+h,x:x+w])
-        if id==1:
+        if _ <= 100:
             cv2.putText(img, "Steve Jobs",(x,y-4),cv2.FONT_HERSHEY_SIMPLEX,0.8,color,2)
+        else :
+            cv2.putText(img, "Unknow",(x,y-4),cv2.FONT_HERSHEY_SIMPLEX,0.8,color,2)
 
+        if ( _ < 100 ):
+            _ = "  {0}%".format(round(100 - _))
+        else:
+            _ = "  {0}%".format(round(100 - _))
+        
+        print(str(_))
         coords=[x,y,w,h]
+        
     return img,coords
 
 
